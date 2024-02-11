@@ -9,7 +9,7 @@ async function LoginUser(req, res) {
     return res.status(400).json({
       success: false,
       status: 400,
-      message: 'invalid crendentials'
+      message: 'invalid credentials'
     });
   }
 
@@ -24,6 +24,8 @@ async function LoginUser(req, res) {
   try {
     const user = await User.findOne({ email: data.email });
 
+
+
     if (!user) {
       return res.status(400).json({
         success: false,
@@ -32,16 +34,24 @@ async function LoginUser(req, res) {
       });
     }
 
+    if (user.password === data.password) {
+      return res.status(200).json(
+        {
+          success: true,
+          status: 200,
+          message: 'User found',
+          user: user._id
+        }
+      )
+    } else {
+      return res.status(400).json({
+        success: false,
+        status: 400,
+        message: 'invalid password'
+      });
+    }
 
 
-    return res.status(200).json(
-      {
-        success: true,
-        status: 200,
-        message: 'User found',
-        user: user._id
-      }
-    )
   } catch (error) {
     console.log(error);
 
@@ -56,3 +66,5 @@ async function LoginUser(req, res) {
 
 
 }
+
+module.exports = LoginUser;

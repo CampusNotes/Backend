@@ -6,6 +6,9 @@ const { PORT } = require('./Config')
 
 const { connectDB } = require('./Startup')
 
+const { authRouter } = require('./Routes')
+// const authRouter = require('./Routes/authRoutes')
+
 const app = express();
 
 connectDB();
@@ -19,6 +22,8 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
   res.json({ msg: "hi from server" })
 })
+
+app.use('/api/auth', authRouter)
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
