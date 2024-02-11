@@ -1,7 +1,6 @@
 require('dotenv').config();
 
-const PORT = process.env.APP_PORT || 8000;
-
 module.exports = {
-  PORT
+  PORT: process.env.APP_PORT || 8000,
+  MONGO_URI: process.env.MONGO_URI
 }
