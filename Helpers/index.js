@@ -1,7 +1,10 @@
 const { hashPassword, comapreHashPassword } = require('./HashPassword')
+const { createAccessToken, createRefreshToken } = require('./Token')
 
 
 module.exports = {
   hashPassword,
-  comapreHashPassword
+  comapreHashPassword,
+  createAccessToken,
+  createRefreshToken
 }

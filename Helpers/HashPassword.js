@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt')
-
-const SALT = process.env.SALT || 10
+const { SALT } = require('../Config')
 
 async function hashPassword(password) {
   try {
