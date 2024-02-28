@@ -3,7 +3,7 @@ const { SALT } = require('../Config')
 
 async function hashPassword(password) {
   try {
-    const hashedPassword = await bcrypt.hash(password, SALT)
+    const hashedPassword = await bcrypt.hash(password, 10)
     return hashedPassword
   } catch (error) {
     console.log('Error  hashing password: ', error);
