@@ -8,6 +8,7 @@ const { connectDB } = require('./Startup')
 
 const { authRouter } = require('./Routes')
 // const authRouter = require('./Routes/authRoutes')
+const authorization = require('./Middlewares/Auth')
 
 const app = express();
 
@@ -19,8 +20,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
-app.get('/', (req, res) => {
-  res.json({ msg: "hi from server" })
+app.get('/', authorization, (req, res) => {
+  res.json({ msg: "hi from server", user_id: req.user_id })
 })
 
 app.use('/api/auth', authRouter)
