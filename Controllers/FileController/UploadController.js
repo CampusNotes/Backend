@@ -1,5 +1,5 @@
 const User = require('../../Models/User')
-const { isEmail } = require('validator')
+
 const jwt = require('jsonwebtoken');
 const { json } = require('express');
 
@@ -8,8 +8,8 @@ const { JWT_SECRET } = require('../../Config')
 
 
 
-async function RegisterUser(req, res) {
-  const { email, password } = req.body;
+async function UploadController(req, res) {
+  const {name,branch,semister,subject,publication,link} = req.body;
 
   try {
 

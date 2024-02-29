@@ -8,7 +8,6 @@ async function LoginUser(req, res) {
   if (!data) {
     return res.status(400).json({
       success: false,
-      status: 400,
       message: 'invalid credentials'
     });
   }
@@ -16,7 +15,6 @@ async function LoginUser(req, res) {
   if (!isEmail(data.email)) {
     return res.status(400).json({
       success: false,
-      status: 400,
       message: 'invalid email'
     });
   }
@@ -29,7 +27,6 @@ async function LoginUser(req, res) {
     if (!user) {
       return res.status(400).json({
         success: false,
-        status: 400,
         message: 'user not registered'
       });
     }
@@ -38,7 +35,6 @@ async function LoginUser(req, res) {
       return res.status(200).json(
         {
           success: true,
-          status: 200,
           message: 'User found',
           user: user._id
         }
@@ -46,7 +42,6 @@ async function LoginUser(req, res) {
     } else {
       return res.status(400).json({
         success: false,
-        status: 400,
         message: 'invalid password'
       });
     }
@@ -55,10 +50,9 @@ async function LoginUser(req, res) {
   } catch (error) {
     console.log(error);
 
-    res.status(400).json(
+    res.status(500).json(
       {
         success: false,
-        status: 400,
         message: 'login failed'
       }
     )
