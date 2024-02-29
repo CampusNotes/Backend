@@ -1,12 +1,7 @@
 const User = require('../../Models/User')
 const { isEmail } = require('validator')
-const jwt = require('jsonwebtoken');
-const { json } = require('express');
-
-const { JWT_SECRET } = require('../../Config')
-
-
-
+const RefreshToken = require('../../Models/RefreshToken')
+const { responseMessage, hashPassword, createAccessToken, createRefreshToken } = require('../../Helpers')
 
 async function RegisterUser(req, res) {
   const { email, password } = req.body;
@@ -14,37 +9,41 @@ async function RegisterUser(req, res) {
   try {
 
     if (!isEmail(email)) {
-      return res.status(400).json({ message: "invalid email" });
+      return responseMessage(res, 400, false, "Invalid email", {})
     }
 
     const user = await User.findOne({ email: email });
 
     if (user) {
-      return res.status(400).json({
-        success: false,
-      
-        message: "user already exists"
-      })
+      return responseMessage(res, 400, false, "User already exists with the email provided")
     }
 
-    await User.create({
-      email,
-      password
-    });
+    const hashedPassword = await hashPassword(password)
 
-    return res.status(200).json({
-      success: true,
-    
-      message: "user Registered"
+    const new_user = new User({
+      username,
+      email,
+      password: hashedPassword
     })
+
+    await new_user.save()
+
+    const access_token = createAccessToken({ id: new_user._id })
+    const refresh_token = createRefreshToken({ id: new_user._id })
+
+    // Save the refresh token to database
+    const refreshToken = new RefreshToken({
+      user_id: new_user._id,
+      token: refresh_token
+    })
+
+    await refreshToken.save()
+
+    return responseMessage(res, 201, true, "User registerd", { user_id: new_user._id, access_token, refresh_token })
 
   } catch (error) {
     console.log(error, "User not Added");
-    return res.status(500).json({
-      success: false,
-      status: 500,
-      message: "error occured"
-    })
+    return responseMessage(res, 500, false, error);
   }
 }
 
