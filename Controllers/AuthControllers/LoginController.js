@@ -46,13 +46,7 @@ async function LoginUser(req, res) {
   } catch (error) {
     console.log(error);
 
-    res.status(400).json(
-      {
-        success: false,
-        status: 400,
-        message: 'login failed'
-      }
-    )
+    return responseMessage(res, 400, false, "Login failed", {})
   }
 
 
