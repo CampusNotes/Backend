@@ -4,7 +4,7 @@ const RefreshToken = require('../../Models/RefreshToken')
 const { responseMessage, hashPassword, createAccessToken, createRefreshToken } = require('../../Helpers')
 
 async function RegisterUser(req, res) {
-  const { email, password } = req.body;
+  const { username,email, password } = req.body;
 
   try {
 
