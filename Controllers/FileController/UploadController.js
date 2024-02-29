@@ -1,52 +1,69 @@
-const User = require('../../Models/User')
+const File = require('../../Models/File')
+const { google } = require('googleapis')
+const fs = require('fs')
 
-const jwt = require('jsonwebtoken');
-const { json } = require('express');
-
-const { JWT_SECRET } = require('../../Config')
-
+const { responseMessage } = require('../../Helpers')
 
 
 
-async function UploadController(req, res) {
-  const {name,branch,semister,subject,publication,link} = req.body;
+async function UploadFile(req, res) {
+  const { name, branch, semester, subject, publicationName, } = req.body;
+  const file = req.file;
+  console.log(file);
+  const user_id = req.user_id;
 
   try {
 
-    if (!isEmail(email)) {
-      return res.status(400).json({ message: "invalid email" });
-    }
+    const auth = new google.auth.GoogleAuth({
+      keyFile: __dirname + '/keys.json',
+      scopes: ['https://www.googleapis.com/auth/drive']
+    })
 
-    const user = await User.findOne({ email: email });
+    const drive = google.drive({
+      version: 'v3',
+      auth
+    })
 
-    if (user) {
-      return res.status(400).json({
-        success: false,
-      
-        message: "user already exists"
-      })
-    }
+    const response = await drive.files.create({
+      requestBody: {
+        name: file.originalname,
+        mimeType: file.mimeType,
+        parents: ['1SU_VaxdHIL6RFxzlZYXvEFOiP_irWCDi']
+      },
+      media: {
+        mimeType: file.mimeType,
+        body: fs.createReadStream(file.path)
+      }
+    })
 
-    await User.create({
-      email,
-      password
+    const uploadedFile = new File({
+      name: file.originalname,
+      branch,
+      semester,
+      subject,
+      publicationName,
+      link: `https://drive.google.com/file/d/${response.data.id}/view`,
+      uploadedBy: user_id
+
+    })
+
+    await uploadedFile.save();
+
+    fs.unlink(file.path, (err) => {
+      if (err) {
+        console.error(err);
+      }
     });
 
-    return res.status(200).json({
-      success: true,
-    
-      message: "user Registered"
+    return responseMessage(res, 201, true, "File uploaded successfully", {
+
     })
 
   } catch (error) {
-    console.log(error, "User not Added");
-    return res.status(500).json({
-      success: false,
-      status: 500,
-      message: "error occured"
-    })
+    console.log(error);
+    return responseMessage(res, 500, false, "Error uploding file", {})
   }
 }
 
 
-module.exports = RegisterUser
+module.exports = UploadFile

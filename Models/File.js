@@ -14,16 +14,16 @@ const userSchema = new Schema({
         enum: ['Computer_Science', 'Information_Technology', 'Electronics&Telecommunication'],
         required: true
     },
-    Semister: {
+    semester: {
         type: String,
         enum: ['1', '2', '3', '4', '5', '6', '7', '8'],
         required: true
     },
-    Subject: {
+    subject: {
         type: String,
         required: true
     },
-    PublicationName: {
+    publicationName: {
         type: String,
         required: true
     },
@@ -31,13 +31,13 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    UploadedBy: {
+    uploadedBy: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
 
-    
+
 });
 
- 
+
 module.exports = mongoose.model('File', userSchema);

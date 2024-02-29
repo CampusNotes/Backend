@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "natural-cistern-415519",
+  "private_key_id": "2998af161f8fb790ef9997a828c2525dce9359b1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCMpKJixbzOigZn\nUurHTjcWlhQeZJ3hvG15A/M9poJd8bSpkrq8//ouwFsUtHLZ+P9Io3NGEmur1bkk\nFm0O5UsgyJpbLRVyhWI//38CiQr9zvQxD2pTLKgemppXTUKB6YtAgTynpVrlMAN5\nwtk8XkRj5xcB199j/GTRc+Jw3Qy4eBakWLd+GIiWmHRwj+DZe6maGvszCiolUZYg\nhyAyK0KbhhGwyLo4ALZyV5LxX6jXxyfqlfIiHOd8NNnYDSgFDt2r9PhbN/mEMV8g\nksD+1zOaCIQ7dfQCN8gGX3C/FmLyUtbY4s8oRbYYsLO9sUv7c7B197FcBp65by71\n+Tom9MtJAgMBAAECggEAANM0om7OhEltqDAsxp9q1foxn5MhTYWxckL0HXDpgDKw\njtb8LQCKhPHpQYjyyNyNgtDn+ft5rjfs9amtyvyTkumoj+vqcvWIA8rCj/mwfl9T\nh2KXUfhApf8WnunRHEg0qVvDY1MJ4lnZwLPEWna/i4LtTWbMj1dezHn3VE9+wkZB\nng2zra3EyrfIi+rMGrpWRUfg4GAm6px4Uiaax6CCqWn/x/vp/d4gfX8ZysmfHqfp\nBu/m8M6xTpp6aSdfajlYrFCBxF0mnW+yRDRUzbS9kgH4qNXW0jpwo3uJ+/3va37y\nWb1EippjT4HeBF3MnsOgPLXVIDcqL/UvJyStpVqP0QKBgQDDO98W3rsrv4d3h55/\n6+hceo8Ua8WncLAARcORFwG2IhKbDPMwKm5Y9LBWzhQdLhbv+Vt87YrNbkV4mYRC\nr2mbStmJLBjzThLsWy+s5/4hJm7+VZvfC5OtrkZzo+eM+a0R0i7KHbC5jpsFPGVY\nsC8t2dE9OqQTQQMB7HZoxLEBpwKBgQC4awAFXP7JuRaCSdxZ/kx+zVHwFGso96Ec\n1wpDobO2/nxvGrbsml3kGsf3su1YkvQz+Xz7GI0kcAnuqMdCYnTdiXV/eT0A7+sm\neyYIX87mTNbI/HTMaO1duaTiyF6UgBklWKP/zNlC5e8UmfuujbF+iecUp0IqY9QO\nVfq+3YoJjwKBgGnZcB6qK7iQYxX/RYP9l0FsgV6E/+jEQ+gh6uIjIx5oYsYFw2P9\n3U4FfAXUPTuE3ZLGE0AsWfD/NFMqiHbPO+aiMkcYzX48ei4DUlngffvjJpJmP9gy\nIqMrta7E0qmwRJFA73VNm58/HfU8xYXMIAgv7C3SOVrnCIZmedxbp8xJAoGARSwt\nV9Wn4/Y+0SPvOPo/qxhMcabXAwjPL8ghG3kdtbgC6JG2p0zHhvXcp7Y/fIeyfYRJ\nMs3ksxQrRY+dHfNcLnSO0/+fuChFpatvepilPJD5x22aScnZrtwhUschYsYhqHZ1\nHU+y9nrUkH+pfbG8L+B+AqsyEEBdm/r4EHt8eVUCgYEAp8dYTxlrqLJG17eKdJJg\necO+6q1WgFN/RrCcg/bUZNX2zCUqCYmlxrTRjeZT8MYNWYxkoO+UpDQUg7C9oCCQ\nDTh9n/PspsoTQ8SiX441CLBv39M2jN7bKDFnZLUDNztyc5XvClEbqYtgXBtsItiV\nMIo51gWwXI0pL4rACHVtOPM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "campusnotes@natural-cistern-415519.iam.gserviceaccount.com",
+  "client_id": "115393600387477585800",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/campusnotes%40natural-cistern-415519.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

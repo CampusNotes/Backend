@@ -6,7 +6,8 @@ const { PORT } = require('./Config')
 
 const { connectDB } = require('./Startup')
 
-const { authRouter } = require('./Routes')
+const { authRouter, fileRouter } = require('./Routes')
+
 // const authRouter = require('./Routes/authRoutes')
 const authorization = require('./Middlewares/Auth')
 
@@ -25,6 +26,7 @@ app.get('/', authorization, (req, res) => {
 })
 
 app.use('/api/auth', authRouter)
+app.use('/api/file', authorization, fileRouter)
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
