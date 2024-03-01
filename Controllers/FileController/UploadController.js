@@ -4,8 +4,6 @@ const fs = require('fs')
 
 const { responseMessage } = require('../../Helpers')
 
-
-
 async function UploadFile(req, res) {
   const { name, branch, semester, subject, publicationName, } = req.body;
   const file = req.file;
@@ -16,7 +14,7 @@ async function UploadFile(req, res) {
 
     const auth = new google.auth.GoogleAuth({
       keyFile: __dirname + '/keys.json',
-      scopes: ['https://www.googleapis.com/auth/drive']
+      scopes: ["https://www.googleapis.com/auth/drive"]
     })
 
     const drive = google.drive({
@@ -42,12 +40,13 @@ async function UploadFile(req, res) {
       semester,
       subject,
       publicationName,
+      fileId: response.data.id,
       link: `https://drive.google.com/file/d/${response.data.id}/view`,
       uploadedBy: user_id
-
     })
 
     await uploadedFile.save();
+
 
     fs.unlink(file.path, (err) => {
       if (err) {
@@ -56,11 +55,16 @@ async function UploadFile(req, res) {
     });
 
     return responseMessage(res, 201, true, "File uploaded successfully", {
-
+      response
     })
 
   } catch (error) {
     console.log(error);
+    fs.unlink(file.path, (err) => {
+      if (err) {
+        console.error(err);
+      }
+    });
     return responseMessage(res, 500, false, "Error uploding file", {})
   }
 }

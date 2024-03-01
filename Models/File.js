@@ -27,6 +27,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    fileId: {
+        type: String,
+        required: true
+    },
     link: {
         type: String,
         required: true
