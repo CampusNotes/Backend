@@ -2,6 +2,7 @@ const File = require('../../Models/File')
 const { google } = require('googleapis')
 const fs = require('fs')
 
+const drive = require('../../Services/DriveService')
 const { responseMessage } = require('../../Helpers')
 
 async function UploadFile(req, res) {
@@ -11,16 +12,6 @@ async function UploadFile(req, res) {
   const user_id = req.user_id;
 
   try {
-
-    const auth = new google.auth.GoogleAuth({
-      keyFile: __dirname + '/keys.json',
-      scopes: ["https://www.googleapis.com/auth/drive"]
-    })
-
-    const drive = google.drive({
-      version: 'v3',
-      auth
-    })
 
     const response = await drive.files.create({
       requestBody: {
@@ -45,7 +36,7 @@ async function UploadFile(req, res) {
       uploadedBy: user_id
     })
 
-    await uploadedFile.save();
+    const filesaved = await uploadedFile.save();
 
 
     fs.unlink(file.path, (err) => {
@@ -55,7 +46,7 @@ async function UploadFile(req, res) {
     });
 
     return responseMessage(res, 201, true, "File uploaded successfully", {
-      response
+      filesaved
     })
 
   } catch (error) {
