@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { LoginController, RegisterController, RefreshTokenController,LogoutController } = require('../Controllers/AuthControllers')
+const { LoginController, RegisterController, RefreshTokenController, LogoutController } = require('../Controllers/AuthControllers')
 
 
 
