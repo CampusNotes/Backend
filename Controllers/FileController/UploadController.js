@@ -13,7 +13,6 @@ async function UploadFile(req, res) {
 
   try {
 
-    const response = await drive.files.create({
       requestBody: {
         name: file.originalname,
         mimeType: file.mimeType,

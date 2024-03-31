@@ -26,7 +26,7 @@ app.get('/', authorization, (req, res) => {
 })
 
 app.use('/api/auth', authRouter)
-app.use('/api/file', authorization, fileRouter)
+app.use('/api/file', fileRouter)
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
