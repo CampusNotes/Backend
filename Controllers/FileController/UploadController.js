@@ -1,20 +1,30 @@
 const File = require('../../Models/File')
+const AuthToken = require('../../Models/AuthToken')
 const { google } = require('googleapis')
 const fs = require('fs')
 
 const drive = require('../../Services/DriveService')
 const { responseMessage } = require('../../Helpers')
 
+
 async function UploadFile(req, res) {
-  const { name, branch, semester, subject, publicationName, } = req.body;
+  const { branch, semester, subject, publicationName } = req.body;
+  const auth_token = req.headers['auth_token'];
   const file = req.file;
   console.log(file);
-  const user_id = req.user_id;
+
 
   try {
 
+    const user = await AuthToken.findOne({ token: auth_token })
+
+    if (!user) {
+      throw new Error('Invalid Token');
+    }
+    const user_id = user.user_id;
+
     const auth = new google.auth.GoogleAuth({
-      keyFile: __dirname + '/keys.json',
+      keyFile: './keys.json',
       scopes: ["https://www.googleapis.com/auth/drive"]
     })
 

@@ -15,7 +15,7 @@ const authorization = require('./Middlewares/Auth')
 
 const app = express();
 
-const io = socketIo(server);
+// const io = socketIo(server);
 
 connectDB();
 
@@ -25,12 +25,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
-app.get('/', authorization, (req, res) => {
-  res.json({ msg: "hi from server", user_id: req.user_id })
+app.get('/', (req, res) => {
+  res.json({ msg: "hi from server" })
 })
 
 app.use('/api/auth', authRouter)
-app.use('/api/file', fileRouter)
+app.use('/api/file', authorization, fileRouter)
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
@@ -43,24 +43,24 @@ app.use((err, req, res, next) => {
 })
 
 
-const{addmessage}=require('./Helpers/AddMessage');
+const { addmessage } = require('./Helpers/AddMessage');
 
-io.on('connection', (socket) => {
-  console.log('A user connected');
+// io.on('connection', (socket) => {
+//   console.log('A user connected');
 
-  // Handle incoming messages
-  socket.on('sendMessage', (messageData) => {
-    // Save the message to MongoDB
-    const allMessage=addmessage(messageData);
-    // Emit the message to all connected clients
-    io.emit('newMessage', allMessage);
-  });
+//   // Handle incoming messages
+//   socket.on('sendMessage', (messageData) => {
+//     // Save the message to MongoDB
+//     const allMessage=addmessage(messageData);
+//     // Emit the message to all connected clients
+//     io.emit('newMessage', allMessage);
+//   });
 
-  // Handle disconnect
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
-});
+//   // Handle disconnect
+//   socket.on('disconnect', () => {
+//     console.log('User disconnected');
+//   });
+// });
 
 app.listen(PORT, () => {
   console.log(`server running at port ${PORT}`);
