@@ -13,6 +13,17 @@ async function UploadFile(req, res) {
 
   try {
 
+    const auth = new google.auth.GoogleAuth({
+      keyFile: __dirname + '/keys.json',
+      scopes: ["https://www.googleapis.com/auth/drive"]
+    })
+
+    const drive = google.drive({
+      version: 'v3',
+      auth
+    })
+
+    const response = await drive.files.create({
       requestBody: {
         name: file.originalname,
         mimeType: file.mimeType,

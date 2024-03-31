@@ -4,7 +4,7 @@ const AuthToken = require('../../Models/AuthToken')
 const { responseMessage, hashPassword, createAccessToken, createRefreshToken } = require('../../Helpers')
 
 async function RegisterUser(req, res) {
-  const { username, email, password } = req.body;
+  const { email, password } = req.body;
 
   try {
 
@@ -21,7 +21,6 @@ async function RegisterUser(req, res) {
     const hashedPassword = await hashPassword(password)
 
     const new_user = new User({
-      username,
       email,
       password: hashedPassword
     })

@@ -1,25 +1,25 @@
 
-const RefreshToken = require('../../Models/RefreshToken')
-const { responseMessage, verifyRefreshToken } = require('../../Helpers')
+const AuthToken = require('../../Models/AuthToken')
+const { responseMessage, verifyAccessToken } = require('../../Helpers')
 
 async function LogoutUser(req, res) {
-  const refresh_token = req.headers['refresh_token'];
-
-//   if (!refresh_token) {
-//     return responseMessage(res, 400, false, "invalid credentials", {})
-//   }
+  const auth_token = req.headers['auth_token'];
+  console.log(auth_token);
+  //   if (!refresh_token) {
+  //     return responseMessage(res, 400, false, "invalid credentials", {})
+  //   }
 
   try {
-    
-    const refreshtoken= verifyRefreshToken(refresh_token);
 
-    const userid=refreshtoken.id;
+    const access_token = verifyAccessToken(auth_token);
 
-    const response = await RefreshToken.deleteOne({user_id:userid});
+    const userid = access_token.id;
 
-   if(response){
-    return responseMessage(res, 200, true, "Logout Successful", {})
-   }
+    const response = await AuthToken.deleteMany({ user_id: userid });
+
+    if (response) {
+      return responseMessage(res, 200, true, "Logout Successful", {})
+    }
 
   } catch (error) {
     console.log(error);

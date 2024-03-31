@@ -7,6 +7,7 @@ const { responseMessage, comapreHashPassword, createAccessToken, createRefreshTo
 async function LoginUser(req, res) {
   const data = req.body;
 
+
   if (!data) {
     return responseMessage(res, 400, false, "invalid credentials", {})
   }
@@ -24,7 +25,7 @@ async function LoginUser(req, res) {
       return responseMessage(res, 400, false, "user not registered", {})
     }
 
-    if (comapreHashPassword(user.password, data.password)) {
+    if (await comapreHashPassword(data.password, user.password)) {
 
       const access_token = createAccessToken({ id: user._id })
 
