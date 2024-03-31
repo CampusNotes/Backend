@@ -1,7 +1,7 @@
 const User = require('../../Models/User')
 
 const { isEmail } = require('validator')
-const RefreshToken = require('../../Models/RefreshToken')
+const AuthToken = require('../../Models/AuthToken')
 const { responseMessage, comapreHashPassword, createAccessToken, createRefreshToken } = require('../../Helpers')
 
 async function LoginUser(req, res) {
@@ -25,18 +25,19 @@ async function LoginUser(req, res) {
     }
 
     if (comapreHashPassword(user.password, data.password)) {
-      const access_token = await createAccessToken({ id: user._id })
-      const refresh_token = await createRefreshToken({ id: user._id })
+
+      const access_token = createAccessToken({ id: user._id })
+
 
       // Save the refresh token to database
-      const refreshToken = new RefreshToken({
+      const auth_token = new AuthToken({
         user_id: user._id,
-        token: refresh_token
+        token: access_token
       })
 
-      await refreshToken.save()
+      await auth_token.save()
 
-      return responseMessage(res, 200, true, "User logged in", { user_id: user._id, access_token, refresh_token })
+      return responseMessage(res, 200, true, "User logged in", { user_id: user._id, auth_token })
 
     } else {
       return responseMessage(res, 400, false, "Invalid password", {})

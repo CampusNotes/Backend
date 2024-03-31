@@ -1,10 +1,10 @@
 const User = require('../../Models/User')
 const { isEmail } = require('validator')
-const RefreshToken = require('../../Models/RefreshToken')
+const AuthToken = require('../../Models/AuthToken')
 const { responseMessage, hashPassword, createAccessToken, createRefreshToken } = require('../../Helpers')
 
 async function RegisterUser(req, res) {
-  const { username,email, password } = req.body;
+  const { username, email, password } = req.body;
 
   try {
 
@@ -29,17 +29,17 @@ async function RegisterUser(req, res) {
     await new_user.save()
 
     const access_token = createAccessToken({ id: new_user._id })
-    const refresh_token = createRefreshToken({ id: new_user._id })
+
 
     // Save the refresh token to database
-    const refreshToken = new RefreshToken({
+    const auth_token = new AuthToken({
       user_id: new_user._id,
-      token: refresh_token
+      token: access_token
     })
 
-    await refreshToken.save()
+    await auth_token.save()
 
-    return responseMessage(res, 201, true, "User registerd", { user_id: new_user._id, access_token, refresh_token })
+    return responseMessage(res, 201, true, "User registerd", { user_id: new_user._id, auth_token })
 
   } catch (error) {
     console.log(error, "User not Added");
