@@ -20,7 +20,7 @@ const app = express();
 const server = http.createServer(app);
 
 const io = socketIo(server,{
-  cors: {origin:"http://localhost:5174", methods: ["GET", "POST"]},
+  cors: {origin:"http://localhost:5173", methods: ["GET", "POST"]},
 });
 
 connectDB();

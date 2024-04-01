@@ -29,7 +29,7 @@ async function LoginUser(req, res) {
 
       const access_token = createAccessToken({ id: user._id })
 
-
+      
       // Save the refresh token to database
       const auth_token = new AuthToken({
         user_id: user._id,

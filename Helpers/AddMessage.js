@@ -9,7 +9,7 @@ async function addmessage(messageData) {
 
     await new_message.save()
 
-    const allmessage = await Message.find();
+    const allmessage = await Message.find().populate("user_id");
 
     return allmessage;
 }
