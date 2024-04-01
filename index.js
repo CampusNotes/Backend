@@ -8,7 +8,7 @@ const { connectDB } = require('./Startup')
 
 const socketIo = require('socket.io');
 
-const { authRouter, fileRouter } = require('./Routes')
+const { authRouter, fileRouter, filterRouter } = require('./Routes')
 
 // const authRouter = require('./Routes/authRoutes')
 const authorization = require('./Middlewares/Auth')
@@ -37,6 +37,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRouter)
 app.use('/api/file', authorization, fileRouter)
+app.use('/api/filter', filterRouter)
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
