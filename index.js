@@ -13,9 +13,15 @@ const { authRouter, fileRouter } = require('./Routes')
 // const authRouter = require('./Routes/authRoutes')
 const authorization = require('./Middlewares/Auth')
 
+const http = require('http');
+
 const app = express();
 
-// const io = socketIo(server);
+const server = http.createServer(app);
+
+const io = socketIo(server,{
+  cors: {origin:"http://localhost:5174", methods: ["GET", "POST"]},
+});
 
 connectDB();
 
@@ -43,25 +49,29 @@ app.use((err, req, res, next) => {
 })
 
 
+
+
+
 const { addmessage } = require('./Helpers/AddMessage');
 
-// io.on('connection', (socket) => {
-//   console.log('A user connected');
+io.on('connection', (socket) => {
+  console.log('A user connected');
 
-//   // Handle incoming messages
-//   socket.on('sendMessage', (messageData) => {
-//     // Save the message to MongoDB
-//     const allMessage=addmessage(messageData);
-//     // Emit the message to all connected clients
-//     io.emit('newMessage', allMessage);
-//   });
+  // Handle incoming messages
+  socket.on('sendMessage', (messageData) => {
+    // Save the message to MongoDB
+    console.log(messageData);
+    const allMessage=addmessage(messageData);
+    // Emit the message to all connected clients
+    io.emit('newMessage', allMessage);
+  });
 
-//   // Handle disconnect
-//   socket.on('disconnect', () => {
-//     console.log('User disconnected');
-//   });
-// });
+  // Handle disconnect
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
+});
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`server running at port ${PORT}`);
 })

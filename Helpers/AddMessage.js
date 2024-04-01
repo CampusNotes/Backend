@@ -2,12 +2,12 @@
 const Message = require('../Models/Message')
 async function addmessage(messageData) {
     const new_message = new Message({
-        message: messageData.message,
+        messagedata: messageData.text,
         user_id: messageData.user_id
 
     })
 
-    await new_user.save()
+    await new_message.save()
 
     const allmessage = await Message.find();
 
