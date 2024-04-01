@@ -1,5 +1,5 @@
 const UploadFileController = require('./UploadController')
-const GetAllFilesController = require('./GetAllFiles')
+const GetAllFilesController = require('./GetAllFilesController')
 
 module.exports = {
   UploadFileController,
