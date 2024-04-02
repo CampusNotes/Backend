@@ -9,9 +9,9 @@ async function addmessage(messageData) {
 
     await new_message.save()
 
-    const allmessage = await Message.find().populate("user_id");
-
-    return allmessage;
+    // const allmessage = await Message.find({}).populate("user_id");
+    // // console.log(allmessage);
+    return messageData;
 }
 
 module.exports = {

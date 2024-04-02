@@ -8,7 +8,7 @@ const { connectDB } = require('./Startup')
 
 const socketIo = require('socket.io');
 
-const { authRouter, fileRouter, filterRouter } = require('./Routes')
+const { authRouter, fileRouter, filterRouter, messageRouter } = require('./Routes')
 
 // const authRouter = require('./Routes/authRoutes')
 const authorization = require('./Middlewares/Auth')
@@ -19,8 +19,8 @@ const app = express();
 
 const server = http.createServer(app);
 
-const io = socketIo(server,{
-  cors: {origin:"http://localhost:5173", methods: ["GET", "POST"]},
+const io = socketIo(server, {
+  cors: { origin: "http://localhost:5173", methods: ["GET", "POST"] },
 });
 
 connectDB();
@@ -38,6 +38,8 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRouter)
 app.use('/api/file', authorization, fileRouter)
 app.use('/api/filter', filterRouter)
+app.use('/api/message', messageRouter)
+
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
@@ -54,18 +56,29 @@ app.use((err, req, res, next) => {
 
 
 const { addmessage } = require('./Helpers/AddMessage');
+const { getAllMessages } = require('./Helpers/GetAllMessage')
 
 io.on('connection', (socket) => {
   console.log('A user connected');
 
+
+
   // Handle incoming messages
-  socket.on('sendMessage', (messageData) => {
+  socket.on('sendMessage', async (messageData) => {
     // Save the message to MongoDB
     console.log(messageData);
-    const allMessage=addmessage(messageData);
+    const newMessage = await addmessage(messageData);
+    console.log(newMessage);
     // Emit the message to all connected clients
-    io.emit('newMessage', allMessage);
+    io.emit('newMessage', newMessage);
   });
+
+  //Get all message
+  // socket.on('getAllMessages', async () => {
+  //   const allmessages = await getAllMessages();
+
+
+  // })
 
   // Handle disconnect
   socket.on('disconnect', () => {
