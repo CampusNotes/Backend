@@ -38,7 +38,7 @@ async function RegisterUser(req, res) {
 
     await auth_token.save()
 
-    return responseMessage(res, 201, true, "User registerd", { user_id: new_user._id, auth_token })
+    return responseMessage(res, 201, true, "User registerd", { isPofileCreated: new_user.isProfileCreated, auth_token })
 
   } catch (error) {
     console.log(error, "User not Added");

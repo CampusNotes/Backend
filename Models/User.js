@@ -13,7 +13,29 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-
+    firstname: {
+        type: String,
+    },
+    lastname: {
+        type: String
+    },
+    gender: {
+        type: String,
+        enum: ['Male', 'Female']
+    },
+    collegename: {
+        type: String
+    },
+    branch: {
+        type: String,
+    },
+    year: {
+        type: String,
+    },
+    isProfileCreated: {
+        type: Boolean,
+        default: false
+    }
 });
 
 

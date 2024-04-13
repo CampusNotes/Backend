@@ -29,7 +29,7 @@ async function LoginUser(req, res) {
 
       const access_token = createAccessToken({ id: user._id })
 
-      
+
       // Save the refresh token to database
       const auth_token = new AuthToken({
         user_id: user._id,
@@ -38,7 +38,8 @@ async function LoginUser(req, res) {
 
       await auth_token.save()
 
-      return responseMessage(res, 200, true, "User logged in", { user_id: user._id, auth_token })
+
+      return responseMessage(res, 200, true, "User logged in", { isPofileCreated: user.isProfileCreated, auth_token })
 
     } else {
       return responseMessage(res, 400, false, "Invalid password", {})
