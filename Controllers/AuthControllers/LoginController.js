@@ -39,7 +39,7 @@ async function LoginUser(req, res) {
       await auth_token.save()
 
 
-      return responseMessage(res, 200, true, "User logged in", { isPofileCreated: user.isProfileCreated, auth_token })
+      return responseMessage(res, 200, true, "User logged in", { isPofileCreated: user.isProfileCreated, user_id: user._id, auth_token })
 
     } else {
       return responseMessage(res, 400, false, "Invalid password", {})
