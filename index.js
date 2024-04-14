@@ -2,7 +2,7 @@ const express = require('express');
 
 const cors = require('cors')
 
-const { PORT } = require('./Config')
+const { PORT, FRONTEND_URL } = require('./Config')
 
 const { connectDB } = require('./Startup')
 
@@ -20,7 +20,7 @@ const app = express();
 const server = http.createServer(app);
 
 const io = socketIo(server, {
-  cors: { origin: "http://localhost:5175", methods: ["GET", "POST"] },
+  cors: { origin: FRONTEND_URL, methods: ["GET", "POST"] },
 });
 
 connectDB();
