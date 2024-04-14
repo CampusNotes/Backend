@@ -6,7 +6,7 @@ async function CreateProfile(req, res) {
   try {
     const newData = req.body;
     const auth_token = req.headers.auth_token;
-    console.log(auth_token);
+    // console.log(auth_token);
 
     const user = await AuthToken.findOne({ token: auth_token });
 

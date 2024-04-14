@@ -20,7 +20,7 @@ const app = express();
 const server = http.createServer(app);
 
 const io = socketIo(server, {
-  cors: { origin: "http://localhost:5173", methods: ["GET", "POST"] },
+  cors: { origin: "http://localhost:5175", methods: ["GET", "POST"] },
 });
 
 connectDB();
@@ -67,9 +67,9 @@ io.on('connection', (socket) => {
   // Handle incoming messages
   socket.on('sendMessage', async (messageData) => {
     // Save the message to MongoDB
-    console.log(messageData);
+    // console.log(messageData);
     const newMessage = await addmessage(messageData);
-    console.log(newMessage);
+    // console.log(newMessage);
     // Emit the message to all connected clients
     io.emit('newMessage', newMessage);
   });

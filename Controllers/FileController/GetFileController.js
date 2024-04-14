@@ -8,7 +8,7 @@ const { responseMessage, comapreHashPassword, createAccessToken, createRefreshTo
 
 async function GetFile(req, res) {
   const {branch,semester,subject} = req.body;
-  console.log(branch,semester,subject);
+  // console.log(branch,semester,subject);
   // if (!data) {
   //   return responseMessage(res, 400, false, "invalid credentials", {})
   // }
