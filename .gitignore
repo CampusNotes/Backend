@@ -130,6 +130,5 @@ dist
 .pnp.*
 
 #uploads folder
-uploads/
 
 /keys.json
