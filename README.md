@@ -57,13 +57,13 @@ Make sure you have the following installed:
 Clone the repository
 
 ```bash
-git clone https://github.com/CampusNotes/NewFrontend.git
+git clone https://github.com/CampusNotes/Backend.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd NewFrontend
+  cd Backend
 ```
 
 Install dependencies
